@@ -24,16 +24,10 @@ const Footer = () => {
                   <h4>company</h4>
                   <ul>
                     <li>
-                      <Link to="/About"> About </Link>
+                      <Link to="/About"> About Us </Link>
                     </li>
                     <li>
                       <Link to="/Contact"> Contact Us </Link>
-                    </li>
-                    <li>
-                      <Link to="/OrganizeCamp"> Organize Camp </Link>
-                    </li>
-                    <li>
-                      <Link to="/Blogs"> Blog </Link>
                     </li>
                     <li>
                       <Link to="/SignIn"> Sign In </Link>

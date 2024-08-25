@@ -43,10 +43,10 @@ export default function CitizenSignUp() {
     firstName: "",
     middleName:"",
     lastName: "",
+    address:"",
     email: "",
     contact: "",
-    password: "",
-    address:""
+    password: ""
   };
 
   let { values, errors, handleBlur, handleChange, handleSubmit, touched } =
@@ -54,26 +54,19 @@ export default function CitizenSignUp() {
       initialValues: initialValues,
       validationSchema: SignUpSchema,
       onSubmit: async (value, action) => {
+        console.log(value);
         action.resetForm();
-        
-
-        const formData = new FormData();
-        formData.append("firstName", values.firstName);
-        formData.append("middleName", values.middleName);
-        formData.append("lastName", values.lastName);
-        formData.append("email", values.email);
-        formData.append("contact", values.contact);
-        formData.append("address", values.address);
-        formData.append("password", values.password);
-
         try {
           const response = await fetch("http://localhost:3500/registerCitizen", {
             method: "POST",
-            body: formData,
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(values),
           });
-
+    
           const data = await response.json();
-
+    
           // Handle the response data as needed.
           console.log(data);
         } catch (error) {
@@ -81,7 +74,6 @@ export default function CitizenSignUp() {
         }
       },
     });
-
  
 
   return (
@@ -106,7 +98,6 @@ export default function CitizenSignUp() {
             component="form"
             noValidate
             onSubmit={handleSubmit}
-            encType="multipart/form-data"
             sx={{ mt: 3 }}
           >
             <Grid container spacing={2}>

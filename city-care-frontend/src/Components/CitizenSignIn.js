@@ -86,7 +86,7 @@ export default function CitizenSignIn() {
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
       {success && submit && (
-        history("/Doner_dashboard")
+        history("/CitizenDashboard")
       )}
       {(
         !success && submit && (

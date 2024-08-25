@@ -8,6 +8,7 @@ import Home from "./Components/Home";
 import ChooseUserType from "./Components/ChooseUserType";
 import CitizenSignIn from "./Components/CitizenSignIn";
 import CitizenSignUp from "./Components/CitizenSignUp";
+import CitizenHome from "./Components/CitizenHome";
 
 function App() {
   const [user, setUser] = useState("");
@@ -15,6 +16,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
+        <Route path="CitizenDashboard" element={<CitizenHome />}></Route>
           <Route path="/" element={<Home />}>
             <Route path="About" element={<About />}></Route>
             <Route path="Contact" element={<Contact />}></Route>

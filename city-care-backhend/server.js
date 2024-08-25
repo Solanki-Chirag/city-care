@@ -27,7 +27,7 @@ app.get("/", (req, res) => {
  // res.send("hello world");
 });
 app.use("/registerCitizen",  require("./routes/registerCitizen"));
-//app.use("/Hospital_SignIn", require("./routes/authHospital"));
+app.use("/CitizenSignIn", require("./routes/authCitizen"));
 
 
 

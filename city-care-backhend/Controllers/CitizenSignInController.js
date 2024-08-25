@@ -1,0 +1,25 @@
+const citizen = require("../model/Citizen");
+const bcrypt = require("bcryptjs");
+
+
+const handleCitizenLogin = async (req, res) => {
+  const { email, password } = req.body;
+  console.log("back",req.body);
+  if (!email || !password)
+    return res.status(400).json("email and password required!!");
+
+  const findCitizen = await citizen.findOne({ email: email });
+  if (!findCitizen) return res.status(401).json("Citizen not found!!");
+
+  const match = await bcrypt.compare(password, findCitizen.password);
+
+  if (match) {
+    
+
+    res.json("success");
+  } else {
+    return res.status(401).json("Incorrect password !!");;
+  }
+};
+
+module.exports = { handleCitizenLogin };

@@ -18,6 +18,13 @@ const SignInSchema = yup.object().shape({
         
 });
 
+const AdminSignInSchema = yup.object().shape({
+    id: yup.string().required("Enter id."),
+    password: yup.string()
+        .required("Enter password")
+        
+});
+
 const SignUpSchema = yup.object().shape({
     firstName: yup.string().max(20).required("Enter firstname."),
     middleName: yup.string().max(20).required("Enter middlename."),
@@ -83,4 +90,4 @@ const CampSchema = yup.object().shape({
 
 
 
-export { SignInSchema, SignUpSchema,HosSignUpSchema,HosSignInSchema,PatientSchema,CampSchema,CampDataSchema,ProblemReportSchema };
+export { SignInSchema, SignUpSchema,AdminSignInSchema,HosSignUpSchema,HosSignInSchema,PatientSchema,CampSchema,CampDataSchema };

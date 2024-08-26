@@ -28,6 +28,7 @@ app.get("/", (req, res) => {
 });
 app.use("/registerCitizen",  require("./routes/registerCitizen"));
 app.use("/CitizenSignIn", require("./routes/authCitizen"));
+app.use("/AdminSignIn", require("./routes/authAdmin"));
 
 
 

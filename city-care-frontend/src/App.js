@@ -9,6 +9,8 @@ import ChooseUserType from "./Components/ChooseUserType";
 import CitizenSignIn from "./Components/CitizenSignIn";
 import CitizenSignUp from "./Components/CitizenSignUp";
 import CitizenHome from "./Components/CitizenHome";
+import AdminSignIn from "./Components/AdminSignIn";
+import AdminHome from "./Components/AdminHome";
 
 function App() {
   const [user, setUser] = useState("");
@@ -17,6 +19,7 @@ function App() {
       <BrowserRouter>
         <Routes>
         <Route path="CitizenDashboard" element={<CitizenHome />}></Route>
+        <Route path="AdminDashboard" element={<AdminHome />}></Route>
           <Route path="/" element={<Home />}>
             <Route path="About" element={<About />}></Route>
             <Route path="Contact" element={<Contact />}></Route>
@@ -26,6 +29,7 @@ function App() {
             ></Route>
             <Route path="CitizenSignIn" element={<CitizenSignIn />}></Route>
             <Route path="CitizenSignUp" element={<CitizenSignUp />}></Route>
+            <Route path="AdminSignIn" element={<AdminSignIn />}></Route>
           
            </Route>
         </Routes>

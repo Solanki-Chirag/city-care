@@ -90,4 +90,4 @@ const CampSchema = yup.object().shape({
 
 
 
-export { SignInSchema, SignUpSchema,AdminSignInSchema,HosSignUpSchema,HosSignInSchema,PatientSchema,CampSchema,CampDataSchema };
+export { SignInSchema, SignUpSchema,AdminSignInSchema,HosSignUpSchema,HosSignInSchema,PatientSchema,CampSchema,CampDataSchema,ProblemReportSchema };

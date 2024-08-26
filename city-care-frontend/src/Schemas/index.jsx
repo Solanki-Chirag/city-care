@@ -4,7 +4,12 @@ const getPasswordValidationError = () => {
     return "Your password must be 8 Passwords or more and contain at least one lowercase letter, one uppercase letter, and one symbol.";
 };
 
-
+const ProblemReportSchema = yup.object().shape({
+    area: yup.string().required("Area is required."),
+    email: yup.string()
+      .email("Enter a valid email.")
+      .required("Email is required."),
+  });
 
 const SignInSchema = yup.object().shape({
     email: yup.string().matches(/^[a-zA-Z0-9._%+-]+@gmail\.com$/,"Enter valid email.").required("Enter email."),
@@ -78,4 +83,4 @@ const CampSchema = yup.object().shape({
 
 
 
-export { SignInSchema, SignUpSchema,HosSignUpSchema,HosSignInSchema,PatientSchema,CampSchema,CampDataSchema };
+export { SignInSchema, SignUpSchema,HosSignUpSchema,HosSignInSchema,PatientSchema,CampSchema,CampDataSchema,ProblemReportSchema };

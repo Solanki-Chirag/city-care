@@ -37,8 +37,6 @@ const defaultTheme = createTheme();
 
 export default function CitizenSignUp() {
   
- 
-
   let initialValues = {
     firstName: "",
     middleName:"",

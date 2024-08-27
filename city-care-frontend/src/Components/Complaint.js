@@ -23,7 +23,7 @@ function Copyright(props) {
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {"Copyright © "}
       <NavLink color="inherit" to={"/"}>
-        Your Website
+        City Care
       </NavLink>{" "}
       {new Date().getFullYear()}
       {"."}

@@ -9,6 +9,15 @@ const complaintSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  description: {
+    type: String,
+    required: true,
+    minlength: 100, // Ensure a minimum of 100 characters
+  },
+  complaintType: {
+    type: String,
+    required: true,
+  },
   image: {
     filename: {
       type: String,

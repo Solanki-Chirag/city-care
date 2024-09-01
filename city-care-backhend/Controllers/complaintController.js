@@ -3,9 +3,9 @@ const citizen = require("../model/Citizen");
 
 const handleComplaintSubmission = async (req, res) => {
   try {
-    const { area, email } = req.body;
+    const { area, email, description, complaintType } = req.body; // Extract the new fields
     const { file } = req;
-    console.log(area);
+
     if (!file) {
       return res.status(400).send({ message: 'No file uploaded' });
     }
@@ -13,6 +13,8 @@ const handleComplaintSubmission = async (req, res) => {
     const newComplaint = new Complaint({
       area,
       email,
+      description, // Add description
+      complaintType, // Add complaintType
       image: {
         filename: file.originalname,
         contentType: file.mimetype,
@@ -40,6 +42,8 @@ const getAllComplaints = async (req, res) => {
         return {
           ...complaint,
           citizenName: Citizen ? Citizen.firstName : 'Unknown Citizen',
+          description: complaint.description, // Include description in response
+          complaintType: complaint.complaintType, // Include complaintType in response
         };
       })
     );
@@ -51,4 +55,4 @@ const getAllComplaints = async (req, res) => {
   }
 };
 
-module.exports = { handleComplaintSubmission , getAllComplaints};
+module.exports = { handleComplaintSubmission, getAllComplaints };

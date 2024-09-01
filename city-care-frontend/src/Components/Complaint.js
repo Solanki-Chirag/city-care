@@ -34,27 +34,30 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function Complaint() {
-  const [file, setFile] = React.useState(null); // Initialize as null
+  const [file, setFile] = React.useState(null);
   const [fileError, setFileError] = React.useState("");
 
   const formik = useFormik({
     initialValues: {
       area: "",
       email: "",
-      file: null
+      file: null,
+      description: "", // New field for description
+      complaintType: "" // New field for type of complaint/problem
     },
     validationSchema: ProblemReportSchema,
     onSubmit: async (values, actions) => {
-      console.log("hi");
       if (fileError || !file) {
-        return; // Prevent submission if there's a file error or no file is selected
+        return;
       }
 
       const formData = new FormData();
       formData.append("area", values.area);
       formData.append("email", values.email);
       formData.append("file", file);
-      console.log(formData);
+      formData.append("description", values.description); // Append new field
+      formData.append("complaintType", values.complaintType); // Append new field
+
       try {
         const response = await fetch("http://localhost:3500/reportProblem", {
           method: "POST",
@@ -78,12 +81,11 @@ export default function Complaint() {
 
   const onHandleFileChange = (event) => {
     const file = event.target.files[0];
-    console.log(file);
     if (file && file.type.toLowerCase() === "image/jpeg") {
       setFile(file);
-      setFileError(""); // Clear any previous error
+      setFileError("");
     } else {
-      setFile(null); // Clear the file if it's invalid
+      setFile(null);
       setFileError("Please upload a valid JPEG image file.");
     }
   };
@@ -102,7 +104,7 @@ export default function Complaint() {
           <Box
             component="form"
             noValidate
-            onSubmit={formik.handleSubmit} // Fixed Formik handleSubmit
+            onSubmit={formik.handleSubmit}
             encType="multipart/form-data"
             sx={{ mt: 3 }}
           >
@@ -149,6 +151,48 @@ export default function Complaint() {
                 {formik.errors.email && formik.touched.email && <Alert severity="error">{formik.errors.email}</Alert>}
               </Grid>
               <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="description"
+                  label="Description"
+                  name="description"
+                  multiline
+                  rows={4}
+                  value={formik.values.description}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                {formik.errors.description && formik.touched.description && (
+                  <Alert severity="error">{formik.errors.description}</Alert>
+                )}
+              </Grid>
+              <Grid item xs={12}>
+                <FormControl required fullWidth>
+                  <InputLabel id="complaint-type-label">Type of Complaint</InputLabel>
+                  <Select
+                    labelId="complaint-type-label"
+                    id="complaintType"
+                    name="complaintType"
+                    value={formik.values.complaintType}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    label="Type of Complaint"
+                  >
+                    <MenuItem value="Road">Road</MenuItem>
+                    <MenuItem value="Bridge">Bridge</MenuItem>
+                    <MenuItem value="Water">Water</MenuItem>
+                    <MenuItem value="Health">Health</MenuItem>
+                    <MenuItem value="Drainage">Drainage</MenuItem>
+                    <MenuItem value="Traffic">Traffic</MenuItem>
+                    <MenuItem value="Street Light">Street Light</MenuItem>
+                  </Select>
+                </FormControl>
+                {formik.errors.complaintType && formik.touched.complaintType && (
+                  <Alert severity="error">{formik.errors.complaintType}</Alert>
+                )}
+              </Grid>
+              <Grid item xs={12}>
                 <FormControl fullWidth required>
                   <label
                     htmlFor="file_input"
@@ -161,18 +205,13 @@ export default function Complaint() {
                     type="file"
                     accept="image/jpeg"
                     onChange={onHandleFileChange}
-                    className="sr-only" // This class visually hides the original input
+                    className="sr-only"
                   />
                 </FormControl>
                 {fileError && <Alert severity="error">{fileError}</Alert>}
               </Grid>
             </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
+            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
               Submit
             </Button>
           </Box>

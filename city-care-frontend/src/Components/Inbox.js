@@ -51,7 +51,7 @@ const Inbox = () => {
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
-                height: '300px', // Fixed height for the card
+                height: '350px', // Adjusted height to accommodate more content
               }}
             >
               <div
@@ -89,6 +89,13 @@ const Inbox = () => {
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
                     Area: {complaint.area}
+                  </Typography>
+                  {/* Display the complaint type and description */}
+                  <Typography variant="body2" color="text.secondary">
+                    Type: {complaint.complaintType}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Description: {complaint.description}
                   </Typography>
                 </div>
                 <CardActions sx={{ justifyContent: 'flex-end', mt: 'auto' }}>

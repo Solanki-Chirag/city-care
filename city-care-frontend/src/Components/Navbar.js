@@ -16,11 +16,7 @@ export default function Header() {
             to={"/"}
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
-            <img
-              src="https://static.vecteezy.com/system/resources/previews/002/442/846/large_2x/blood-logo-illustration-free-vector.jpg"
-              className="h-8"
-              alt=" Logo"
-            />
+            
             <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
               City Care
             </span>

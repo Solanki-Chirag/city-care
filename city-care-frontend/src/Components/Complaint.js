@@ -81,7 +81,7 @@ export default function Complaint() {
 
   const onHandleFileChange = (event) => {
     const file = event.target.files[0];
-    if (file && file.type.toLowerCase() === "image/jpeg") {
+    if (file && file.type.toLowerCase() === "image/jpeg") {  
       setFile(file);
       setFileError("");
     } else {

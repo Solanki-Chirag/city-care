@@ -32,6 +32,18 @@ const handleComplaintSubmission = async (req, res) => {
 };
 
 const getAllComplaints = async (req, res) => {
+  function truncateText(text, maxLines, lineHeight = 1.2) {
+    // Estimate the number of characters per line (This may need adjustment based on your actual use case)
+    const charactersPerLine = 40; // Adjust this value as needed
+    const maxChars = maxLines * charactersPerLine;
+  
+    if (text.length <= maxChars) {
+      return text;
+    }
+  
+    return text.slice(0, maxChars) + '...';
+  }
+  
   try {
     const complaints = await Complaint.find().lean();
 
@@ -39,10 +51,12 @@ const getAllComplaints = async (req, res) => {
     const complaintsWithCitizenNames = await Promise.all(
       complaints.map(async (complaint) => {
         const Citizen = await citizen.findOne({ email: complaint.email });
+        const truncatedDescription = truncateText(complaint.description, 2);
+        
         return {
           ...complaint,
           citizenName: Citizen ? Citizen.firstName : 'Unknown Citizen',
-          description: complaint.description, // Include description in response
+          description: truncatedDescription, // Truncated description
           complaintType: complaint.complaintType, // Include complaintType in response
         };
       })

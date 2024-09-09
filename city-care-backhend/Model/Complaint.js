@@ -12,7 +12,7 @@ const complaintSchema = new mongoose.Schema({
   description: {
     type: String,
     required: true,
-    minlength: 100, // Ensure a minimum of 100 characters
+    minlength: 10, // Ensure a minimum of 100 characters
   },
   complaintType: {
     type: String,

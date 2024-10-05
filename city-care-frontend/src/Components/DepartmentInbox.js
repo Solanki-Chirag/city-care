@@ -5,17 +5,20 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
-import { useLocation } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 
 const DepartmentInbox = () => {
   const [complaints, setComplaints] = useState([]);
-  const location = useLocation();
-  const department = location.state?.department || 'Department'; // Access department name from state
+  const { department } = useParams();
+  useEffect(() => {
+    // Store the department in local storage if needed
+    localStorage.setItem("department", department);
+}, [department]);
 
   useEffect(() => {
     const fetchComplaints = async () => {
       try {
-        const response = await fetch('http://localhost:3500/DepartmentComplaints');
+        const response = await fetch(`http://localhost:3500/DepartmentComplaints/department?department=${department}`);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }

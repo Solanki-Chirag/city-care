@@ -36,6 +36,7 @@ app.use("/DepartmentSignIn", require("./routes/authDepartment"));
 app.use("/AdminSignIn", require("./routes/authAdmin"));
 app.use("/reportProblem", require("./routes/reportProblem"));
 app.use("/complaints", require("./routes/complaints"));
+app.use("/DepartmentComplaints", require("./routes/DepartmentComplaints"));
 app.use("/accepted-complaints",require("./routes/accepted-complaints"));
 app.use("/rejectComplaint",require("./routes/rejectComplaint"));
  

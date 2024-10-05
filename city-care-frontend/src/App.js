@@ -31,7 +31,7 @@ function App() {
           <Route path="Inbox" element={<Inbox/>}> </Route>
         </Route>
         <Route path="DepartmentDashboard/:department" element={<DepartmentHome />}>
-          <Route path="DepartmentInbox" element={<DepartmentInbox/>}> </Route>
+          <Route path="DepartmentInbox/:department" element={<DepartmentInbox/>}> </Route>
         </Route>
 
         

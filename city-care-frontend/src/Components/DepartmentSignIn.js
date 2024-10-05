@@ -40,6 +40,7 @@ export default function DepartmentSignIn() {
   const navigate = useNavigate();
   const location = useLocation();
   const department = location.state?.department; // Department name passed via state
+  console.log(department);
 
 
   // Initial form values including department

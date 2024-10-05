@@ -9,12 +9,13 @@ import ChooseUserType from "./Components/ChooseUserType";
 import CitizenSignIn from "./Components/CitizenSignIn";
 import CitizenSignUp from "./Components/CitizenSignUp";
 import CitizenHome from "./Components/CitizenHome";
-
+import DepartmentHome from "./Components/DepartmentHome";
 import Complaint from "./Components/Complaint";
 import AdminHome from "./Components/AdminHome";
 import Inbox from "./Components/Inbox";
-
+import DepartmentInbox from "./Components/DepartmentInbox";
 import AdminSignIn from "./Components/AdminSignIn";
+import DepartmentSignIn from "./Components/DepartmentSignIn";
 
 function App() {
   const [user, setUser] = useState("");
@@ -29,6 +30,9 @@ function App() {
         <Route path="AdminDashboard" element={<AdminHome />}>
           <Route path="Inbox" element={<Inbox/>}> </Route>
         </Route>
+        <Route path="DepartmentDashboard/:department" element={<DepartmentHome />}>
+          <Route path="DepartmentInbox" element={<DepartmentInbox/>}> </Route>
+        </Route>
 
         
           <Route path="/" element={<Home />}>
@@ -41,6 +45,7 @@ function App() {
             <Route path="CitizenSignIn" element={<CitizenSignIn />}></Route>
             <Route path="CitizenSignUp" element={<CitizenSignUp />}></Route>
             <Route path="AdminSignIn" element={<AdminSignIn />}></Route>
+            <Route path="DepartmentSignIn" element={<DepartmentSignIn />}></Route>
           
            </Route>
         </Routes>

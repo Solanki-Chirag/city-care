@@ -6,20 +6,31 @@ import FormControl from "@mui/material/FormControl";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
 
 export default function ChooseUserType({ user, setUser }) {
   const [selectedValue, setSelectedValue] = useState("");
+  const [selectedDepartment, setSelectedDepartment] = useState("");
   const navigate = useNavigate();
+
   const handleChange = (event) => {
     setSelectedValue(event.target.value);
     setUser(event.target.value);
   };
 
+  const handleDepartmentChange = (event) => {
+    setSelectedDepartment(event.target.value);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(user);
-    {
-      user === "Citizen" ? navigate("/CitizenSignIn") : navigate("/AdminSignIn");
+    if (user === "Citizen") {
+      navigate("/CitizenSignIn");
+    } else if (user === "Admin") {
+      navigate("/AdminSignIn");
+    } else if (user === "Department") {
+      navigate("/DepartmentSignIn", { state: { department: selectedDepartment } });
     }
   };
 
@@ -64,10 +75,40 @@ export default function ChooseUserType({ user, setUser }) {
                   control={<Radio color="secondary" />}
                   label="Admin"
                 />
-               
+                <FormControlLabel
+                  value="Department"
+                  control={<Radio color="default" />}
+                  label="Department"
+                />
               </RadioGroup>
             </FormControl>
           </Grid>
+
+          {/* Show department selection if Department is selected */}
+          {selectedValue === "Department" && (
+            <Grid item xs={12}>
+              <FormControl fullWidth>
+                <Select
+                  value={selectedDepartment}
+                  onChange={handleDepartmentChange}
+                  displayEmpty
+                >
+                  <MenuItem value="" disabled>
+                    Select Department
+                  </MenuItem>
+                  <MenuItem value="Road Department">Road Department</MenuItem>
+                  <MenuItem value="Sewage Department">Sewage Department</MenuItem>
+                  <MenuItem value="Waste Management Department">
+                    Waste Management Department
+                  </MenuItem>
+                  <MenuItem value="Street Light Department">
+                    Street Light Department
+                  </MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+          )}
+
           <Grid item xs={12}>
             <button
               type="submit"

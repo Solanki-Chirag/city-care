@@ -1,6 +1,6 @@
 const citizen = require("../model/Citizen");
 const bcrypt = require("bcryptjs");
-
+const generateTokens=require("../utils/generateTokens");
 
 const handleCitizenLogin = async (req, res) => {
   const { email, password } = req.body;
@@ -15,7 +15,7 @@ const handleCitizenLogin = async (req, res) => {
 
   if (match) {
     
-
+    generateTokens.generateTokenAndSetCookie(findCitizen._id, res);
     res.json("success");
   } else {
     return res.status(401).json("Incorrect password !!");;

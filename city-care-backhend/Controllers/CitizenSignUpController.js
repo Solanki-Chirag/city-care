@@ -1,6 +1,6 @@
 const citizen = require("../model/Citizen");
 const bcrypt = require("bcryptjs");
-
+const generateTokens=require("../utils/generateTokens");
 const handleNewCitizen = async (req, res) => {
   const { firstName, middleName, lastName,address,email, contact, password } = req.body;
   if (!firstName || !middleName || !lastName || !address || !email || !contact || !password)
@@ -24,8 +24,11 @@ const handleNewCitizen = async (req, res) => {
       contact: contact,
       password: hashedPwd,
     });
+    if(result1){
+      console.log(result1);
+      generateTokens.generateTokenAndSetCookie(result1._id, res);
 
-    console.log(result1);
+    }
 
     res.status(201).json({ success: `New citizen ${firstName} created!` });
   } catch (err) {

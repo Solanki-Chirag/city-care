@@ -8,7 +8,9 @@ import Container from '@mui/material/Container';
 
 const Inbox = () => {
   const [complaints, setComplaints] = useState([]);
+  const [refresh, setRefresh] = useState(false); // A flag to trigger refresh after changes
 
+  // Fetch complaints initially and after changes
   useEffect(() => {
     const fetchComplaints = async () => {
       try {
@@ -25,15 +27,61 @@ const Inbox = () => {
     };
 
     fetchComplaints();
-  }, []);
+  }, [refresh]); // Re-fetch when `refresh` changes
 
-  const handleAccept = (complaintId) => {
-    console.log(`Accepted complaint with ID: ${complaintId}`);
+  const handleAccept = async (complaintId) => {
+    // Find the complaint by its ID
+    const complaint = complaints.find(c => c._id === complaintId);
+
+    try {
+      const response = await fetch('http://localhost:3500/accepted-complaints', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(complaint), // Send the entire complaint data to the backend
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log('Complaint accepted:', data.message);
+
+      // Trigger a refresh to re-fetch updated complaints
+      setRefresh(prev => !prev);
+    } catch (error) {
+      console.error('Error accepting complaint:', error);
+    }
   };
 
-  const handleReject = (complaintId) => {
-    console.log(`Rejected complaint with ID: ${complaintId}`);
+  const handleReject = async (complaintId) => {
+    try {
+      // Send a POST request to the API endpoint to reject the complaint
+      const response = await fetch(`http://localhost:3500/rejectComplaint`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ _id: complaintId }), // Send the complaint ID in the request body
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+  
+      // Log a success message in the console
+      console.log('Complaint rejected');
+  
+      // Trigger a refresh to re-fetch updated complaints
+      setRefresh((prev) => !prev);
+    } catch (error) {
+      // Log any errors encountered during the request
+      console.error('Error rejecting complaint:', error);
+    }
   };
+  
 
   return (
     <Container

@@ -20,6 +20,7 @@ const handleComplaintSubmission = async (req, res) => {
         contentType: file.mimetype,
         imageBase64: file.buffer.toString('base64'), // Convert image to Base64
       },
+      status:"pending",
     });
 
     await newComplaint.save();
@@ -45,7 +46,7 @@ const getAllComplaints = async (req, res) => {
   }
   
   try {
-    const complaints = await Complaint.find().lean();
+    const complaints = await Complaint.find({ status: 'pending' }).lean();
 
     // Fetch the corresponding citizen names based on email
     const complaintsWithCitizenNames = await Promise.all(

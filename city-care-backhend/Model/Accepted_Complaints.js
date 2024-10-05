@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const complaintSchema = new mongoose.Schema({
+const acceptedComplaintsSchema = new mongoose.Schema({
   area: {
     type: String,
     required: true,
@@ -12,11 +12,18 @@ const complaintSchema = new mongoose.Schema({
   description: {
     type: String,
     required: true,
-    minlength: 10, // Ensure a minimum of 100 characters
+    minlength: 10,
   },
   complaintType: {
-    type: String,  
+    type: String,
     required: true,
+  },
+  department:{
+    type:String
+  },
+  status:{
+    type:String,
+    default:"acccepted",
   },
   image: {
     filename: {
@@ -32,10 +39,10 @@ const complaintSchema = new mongoose.Schema({
       required: true,
     },
   },
-  status: {
-    type:String,
-    default:"pending"
-  }
+  acceptedAt: {
+    type: Date,
+    default: Date.now, // Automatically sets the time when the complaint is accepted
+  },
 });
 
-module.exports = mongoose.model('Complaint', complaintSchema);
+module.exports = mongoose.model('AcceptedComplaint', acceptedComplaintsSchema);

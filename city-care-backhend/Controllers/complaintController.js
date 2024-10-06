@@ -1,5 +1,5 @@
 const Complaint = require('../Model/Complaint');
-const citizen = require("../Model/Citizen");
+const citizen = require('../Model/Citizen');
 
 const handleComplaintSubmission = async (req, res) => {
   try {
@@ -13,13 +13,13 @@ const handleComplaintSubmission = async (req, res) => {
     const newComplaint = new Complaint({
       area,
       email,
-      description, // Add description
+      description, // Use the full description
       image: {
         filename: file.originalname,
         contentType: file.mimetype,
         imageBase64: file.buffer.toString('base64'), // Convert image to Base64
       },
-      status: "pending",
+      status: 'pending',
     });
 
     await newComplaint.save();
@@ -32,18 +32,6 @@ const handleComplaintSubmission = async (req, res) => {
 };
 
 const getAllComplaints = async (req, res) => {
-  function truncateText(text, maxLines, lineHeight = 1.2) {
-    // Estimate the number of characters per line (This may need adjustment based on your actual use case)
-    const charactersPerLine = 40; // Adjust this value as needed
-    const maxChars = maxLines * charactersPerLine;
-
-    if (text.length <= maxChars) {
-      return text;
-    }
-
-    return text.slice(0, maxChars) + '...';
-  }
-
   try {
     const complaints = await Complaint.find({ status: 'pending' }).lean();
 
@@ -51,12 +39,11 @@ const getAllComplaints = async (req, res) => {
     const complaintsWithCitizenNames = await Promise.all(
       complaints.map(async (complaint) => {
         const Citizen = await citizen.findOne({ email: complaint.email });
-        const truncatedDescription = truncateText(complaint.description, 2);
 
         return {
           ...complaint,
           citizenName: Citizen ? Citizen.firstName : 'Unknown Citizen',
-          description: truncatedDescription, // Truncated description
+          description: complaint.description, // Use the full description without truncation
         };
       })
     );

@@ -1,5 +1,5 @@
 const Complaint = require('../Model/Complaint');
-const citizen = require("../model/Citizen");
+const citizen = require("../Model/Citizen");
 
 const handleComplaintSubmission = async (req, res) => {
   try {
@@ -19,7 +19,7 @@ const handleComplaintSubmission = async (req, res) => {
         contentType: file.mimetype,
         imageBase64: file.buffer.toString('base64'), // Convert image to Base64
       },
-      status:"pending",
+      status: "pending",
     });
 
     await newComplaint.save();
@@ -36,14 +36,14 @@ const getAllComplaints = async (req, res) => {
     // Estimate the number of characters per line (This may need adjustment based on your actual use case)
     const charactersPerLine = 40; // Adjust this value as needed
     const maxChars = maxLines * charactersPerLine;
-  
+
     if (text.length <= maxChars) {
       return text;
     }
-  
+
     return text.slice(0, maxChars) + '...';
   }
-  
+
   try {
     const complaints = await Complaint.find({ status: 'pending' }).lean();
 
@@ -52,7 +52,7 @@ const getAllComplaints = async (req, res) => {
       complaints.map(async (complaint) => {
         const Citizen = await citizen.findOne({ email: complaint.email });
         const truncatedDescription = truncateText(complaint.description, 2);
-        
+
         return {
           ...complaint,
           citizenName: Citizen ? Citizen.firstName : 'Unknown Citizen',

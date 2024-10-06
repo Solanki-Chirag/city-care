@@ -14,7 +14,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useFormik } from "formik";
 import { SignInSchema } from "../Schemas";
 import Alert from "@mui/material/Alert";
-import { NavLink,useNavigate} from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useAuthContext } from "../context/AuthContext";
 
 function Copyright(props) {
   return (
@@ -39,8 +40,8 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function CitizenSignIn() {
-  const history=useNavigate();
-
+  const history = useNavigate();
+  const { setAuthUser } = useAuthContext();
 
   let initialValues = {
     email: "",
@@ -68,11 +69,12 @@ export default function CitizenSignIn() {
             console.log("Login failed. Please check your credentials.");
             return;
           }
-          
+
           setsuccess(true);
           action.resetForm(initialValues); // Login successful
           const data = await response.json();
-
+          localStorage.setItem("citycare", JSON.stringify(data));
+          setAuthUser(data);
           // Handle the response data as needed.
           console.log(data);
         } catch (error) {
@@ -81,24 +83,19 @@ export default function CitizenSignIn() {
       },
     });
 
-  
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
-      {success && submit && (
-        history("/CitizenDashboard")
-      )}
-      {(
-        !success && submit && (
-          <div className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg--800 dark:text-red-400" role="alert">
-             !Invalid Email and Password
+        {success && submit && history("/CitizenDashboard")}
+        {!success && submit && (
+          <div
+            className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg--800 dark:text-red-400"
+            role="alert"
+          >
+            !Invalid Email and Password
           </div>
-        )
-      )}
-       
-      
-        
-          
+        )}
+
         <CssBaseline />
         <Box
           sx={{

@@ -16,7 +16,10 @@ const handleCitizenLogin = async (req, res) => {
   if (match) {
     
     generateTokens.generateTokenAndSetCookie(findCitizen._id, res);
-    res.json("success");
+    res.status(200).json({
+      _id:findCitizen._id,
+      email:findCitizen.email
+    });
   } else {
     return res.status(401).json("Incorrect password !!");;
   }

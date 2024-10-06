@@ -3,7 +3,7 @@ const citizen = require("../model/Citizen");
 
 const handleComplaintSubmission = async (req, res) => {
   try {
-    const { area, email, description, complaintType } = req.body; // Extract the new fields
+    const { area, email, description } = req.body; // Extract the new fields
     const { file } = req;
 
     if (!file) {
@@ -14,7 +14,6 @@ const handleComplaintSubmission = async (req, res) => {
       area,
       email,
       description, // Add description
-      complaintType, // Add complaintType
       image: {
         filename: file.originalname,
         contentType: file.mimetype,
@@ -58,7 +57,6 @@ const getAllComplaints = async (req, res) => {
           ...complaint,
           citizenName: Citizen ? Citizen.firstName : 'Unknown Citizen',
           description: truncatedDescription, // Truncated description
-          complaintType: complaint.complaintType, // Include complaintType in response
         };
       })
     );

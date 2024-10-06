@@ -138,10 +138,7 @@ const Inbox = () => {
                   <Typography variant="body2" color="text.secondary">
                     Area: {complaint.area}
                   </Typography>
-                  {/* Display the complaint type and description */}
-                  <Typography variant="body2" color="text.secondary">
-                    Type: {complaint.complaintType}
-                  </Typography>
+                  
                   <Typography variant="body2" color="text.secondary">
                     Description: {complaint.description}
                   </Typography>

@@ -14,10 +14,6 @@ const complaintSchema = new mongoose.Schema({
     required: true,
     minlength: 10, // Ensure a minimum of 100 characters
   },
-  complaintType: {
-    type: String,  
-    required: true,
-  },
   image: {
     filename: {
       type: String,
@@ -35,7 +31,11 @@ const complaintSchema = new mongoose.Schema({
   status: {
     type:String,
     default:"pending"
-  }
+  },
+  time: {
+    type: Date,
+    default: Date.now,  // Set default to current date and time
+  },
 });
 
 module.exports = mongoose.model('Complaint', complaintSchema);

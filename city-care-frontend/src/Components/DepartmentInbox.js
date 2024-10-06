@@ -90,30 +90,19 @@ const DepartmentInbox = () => {
                 }}
               >
                 <div>
-                  <Typography variant="h6" component="div">
-                    {complaint.citizenName}
-                  </Typography>
+                  
                   <Typography variant="body2" color="text.secondary">
                     {complaint.email}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
                     Area: {complaint.area}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    Type: {complaint.complaintType}
-                  </Typography>
+                  
                   <Typography variant="body2" color="text.secondary">
                     Description: {complaint.description}
                   </Typography>
                 </div>
-                <CardActions sx={{ justifyContent: 'flex-end', mt: 'auto' }}>
-                  <Button size="small" color="primary" onClick={() => handleAccept(complaint._id)}>
-                    Accept
-                  </Button>
-                  <Button size="small" color="secondary" onClick={() => handleReject(complaint._id)}>
-                    Reject
-                  </Button>
-                </CardActions>
+                
               </div>
             </Card>
           </Grid>

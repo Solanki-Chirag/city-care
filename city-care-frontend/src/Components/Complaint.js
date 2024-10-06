@@ -43,7 +43,6 @@ export default function Complaint() {
       email: "",
       file: null,
       description: "", // New field for description
-      complaintType: "" // New field for type of complaint/problem
     },
     validationSchema: ProblemReportSchema,
     onSubmit: async (values, actions) => {
@@ -56,7 +55,7 @@ export default function Complaint() {
       formData.append("email", values.email);
       formData.append("file", file);
       formData.append("description", values.description); // Append new field
-      formData.append("complaintType", values.complaintType); // Append new field
+      
 
       try {
         const response = await fetch("http://localhost:3500/reportProblem", {
@@ -167,31 +166,7 @@ export default function Complaint() {
                   <Alert severity="error">{formik.errors.description}</Alert>
                 )}
               </Grid>
-              <Grid item xs={12}>
-                <FormControl required fullWidth>
-                  <InputLabel id="complaint-type-label">Type of Complaint</InputLabel>
-                  <Select
-                    labelId="complaint-type-label"
-                    id="complaintType"
-                    name="complaintType"
-                    value={formik.values.complaintType}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    label="Type of Complaint"
-                  >
-                    <MenuItem value="Road">Road</MenuItem>
-                    <MenuItem value="Bridge">Bridge</MenuItem>
-                    <MenuItem value="Water">Water</MenuItem>
-                    <MenuItem value="Health">Health</MenuItem>
-                    <MenuItem value="Drainage">Drainage</MenuItem>
-                    <MenuItem value="Traffic">Traffic</MenuItem>
-                    <MenuItem value="Street Light">Street Light</MenuItem>
-                  </Select>
-                </FormControl>
-                {formik.errors.complaintType && formik.touched.complaintType && (
-                  <Alert severity="error">{formik.errors.complaintType}</Alert>
-                )}
-              </Grid>
+              
               <Grid item xs={12}>
                 <FormControl fullWidth required>
                   <label

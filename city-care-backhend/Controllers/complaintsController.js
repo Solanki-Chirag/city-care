@@ -8,8 +8,7 @@ const getDepartmentComplaints = async (req, res) => {
   try {
     // Fetch complaints where the department matches the query
     const complaints = await AcceptedComplaint.find({ department });
-    console.log(department);
-    console.log(complaints);
+    
     
     if (complaints.length === 0) {
       return res.status(404).json({ message: 'No complaints found for this department' });

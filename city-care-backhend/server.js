@@ -39,7 +39,8 @@ app.use("/complaints", require("./routes/complaints"));
 app.use("/DepartmentComplaints", require("./routes/DepartmentComplaints"));
 app.use("/accepted-complaints",require("./routes/accepted-complaints"));
 app.use("/rejectComplaint",require("./routes/rejectComplaint"));
- 
+app.use("/showStatus",require("./routes/showStatus"));
+  
 
 mongoose.connection.once("open", () => {
   console.log("connected to mongodb");

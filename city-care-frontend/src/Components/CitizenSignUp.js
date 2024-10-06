@@ -13,7 +13,7 @@ import { useFormik } from "formik";
 import { SignUpSchema } from "../Schemas";
 import Alert from "@mui/material/Alert";
 import { NavLink } from "react-router-dom";
-
+import { useAuthContext } from "../context/AuthContext";
 
 function Copyright(props) {
   return (
@@ -36,7 +36,7 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function CitizenSignUp() {
-  
+  const { setAuthUser } = useAuthContext();
   let initialValues = {
     firstName: "",
     middleName:"",
@@ -64,7 +64,8 @@ export default function CitizenSignUp() {
           });
     
           const data = await response.json();
-    
+          localStorage.setItem("citycare", JSON.stringify(data));
+			    setAuthUser(data);
           // Handle the response data as needed.
           console.log(data);
         } catch (error) {

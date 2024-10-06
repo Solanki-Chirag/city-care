@@ -28,9 +28,14 @@ const handleNewCitizen = async (req, res) => {
       console.log(result1);
       generateTokens.generateTokenAndSetCookie(result1._id, res);
 
+      res.status(201).json({
+        _id:result1._id,
+        email:result1.email
+      });
+
     }
 
-    res.status(201).json({ success: `New citizen ${firstName} created!` });
+    
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

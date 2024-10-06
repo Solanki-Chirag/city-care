@@ -14,10 +14,6 @@ const acceptedComplaintsSchema = new mongoose.Schema({
     required: true,
     minlength: 10,
   },
-  complaintType: {
-    type: String,
-    required: true,
-  },
   department:{
     type:String
   },
@@ -38,6 +34,9 @@ const acceptedComplaintsSchema = new mongoose.Schema({
       type: String,
       required: true,
     },
+  },
+  time:{
+    type: Date,
   },
   acceptedAt: {
     type: Date,

@@ -14,9 +14,7 @@ const ProblemReportSchema = yup.object().shape({
     .string()
     .min(10, "Description must be at least 10 characters long.")
     .required("Description is required."),
-  complaintType: yup
-    .string()
-    .required("Type of complaint/problem is required."),
+ 
 });
 
 const SignInSchema = yup.object().shape({

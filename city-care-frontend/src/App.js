@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import "./App.css";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -16,16 +16,20 @@ import Inbox from "./Components/Inbox";
 import DepartmentInbox from "./Components/DepartmentInbox";
 import AdminSignIn from "./Components/AdminSignIn";
 import DepartmentSignIn from "./Components/DepartmentSignIn";
+import ComplaintsStatus from "./Components/ComplaintsStatus";
+import { AuthContextProvider } from "./context/AuthContext";
 
 function App() {
   const [user, setUser] = useState("");
   return (
     <>
       <BrowserRouter>
+      <AuthContextProvider>
         <Routes>
 
         <Route path="CitizenDashboard" element={<CitizenHome />}>
           <Route path="Complaint" element={<Complaint/>}> </Route>
+          <Route path="ComplaintsStatus" element={<ComplaintsStatus/>}> </Route>
         </Route>
         <Route path="AdminDashboard" element={<AdminHome />}>
           <Route path="Inbox" element={<Inbox/>}> </Route>
@@ -49,6 +53,7 @@ function App() {
           
            </Route>
         </Routes>
+        </AuthContextProvider>
       </BrowserRouter>
     </>
   );

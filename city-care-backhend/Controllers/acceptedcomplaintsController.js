@@ -1,6 +1,5 @@
 const AcceptedComplaints = require('../Model/Accepted_Complaints');
 const Complaint = require('../Model/Complaint');
-const axios = require('axios'); // Import axios to make HTTP requests
 
 const storeAcceptedComplaints = async (req, res) => {
   try {
@@ -16,15 +15,29 @@ const storeAcceptedComplaints = async (req, res) => {
     let department;
 
     try {
-      // Send the description to the Python API
-      const response = await axios.post(pythonApiUrl, { description });
+      // Send the description to the Python API using fetch
+      const response = await fetch(pythonApiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ description }),
+      });
 
+      // Ensure the response is OK
+      if (!response.ok) {
+        throw new Error(`Python API error: ${response.statusText}`);
+      }
+
+      // Parse the JSON response
+      const data = await response.json();
+      
       // Log the full response for debugging
-      console.log('Python API response:', response.data);
+      console.log('Python API response:', data);
 
       // Check if the predicted department is in the response
-      if (response.data && response.data.predicted_department) {
-        department = response.data.predicted_department; // Extract department from the response
+      if (data && data.predicted_department) {
+        department = data.predicted_department; // Extract department from the response
         console.log(`Department classified as: ${department}`);
       } else {
         console.error('No department found in the Python API response.');

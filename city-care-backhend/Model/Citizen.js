@@ -29,6 +29,9 @@ const citizenSchema = new Schema({
   password: {
     type: String,
     required: true,
+  },
+  refreshToken : {
+    type : String
   }
 });
 

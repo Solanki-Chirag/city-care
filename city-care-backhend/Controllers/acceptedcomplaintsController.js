@@ -12,7 +12,7 @@ const storeAcceptedComplaints = async (req, res) => {
     }
 
     // Call the Python API to classify the complaint into a department
-    const pythonApiUrl = 'http://localhost:5000/predict'; // Adjust the URL if needed
+    const pythonApiUrl = 'http://127.0.0.1:5000/predict'; // Adjust the URL if needed
     let department;
 
     try {

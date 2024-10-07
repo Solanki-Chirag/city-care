@@ -40,6 +40,7 @@ app.use("/DepartmentComplaints", require("./routes/DepartmentComplaints"));
 app.use("/accepted-complaints",require("./routes/accepted-complaints"));
 app.use("/rejectComplaint",require("./routes/rejectComplaint"));
 app.use("/showStatus",require("./routes/showStatus"));
+app.use("/updateComplaintStatus",require("./routes/updateComplaintStatus"));
   
 
 mongoose.connection.once("open", () => {

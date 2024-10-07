@@ -7,7 +7,7 @@ const getDepartmentComplaints = async (req, res) => {
 
   try {
     // Fetch complaints where the department matches the query
-    const complaints = await AcceptedComplaint.find({ department });
+    const complaints = await AcceptedComplaint.find({ department,status: { $ne: 'resolved' } });
     
     
     if (complaints.length === 0) {

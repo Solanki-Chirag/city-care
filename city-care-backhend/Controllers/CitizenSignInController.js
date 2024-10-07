@@ -1,6 +1,6 @@
 const citizen = require("../Model/Citizen");
 const bcrypt = require("bcryptjs");
-const generateTokens = require("../utils/generateTokens");
+const jwt = require("jsonwebtoken");
 
 const handleCitizenLogin = async (req, res) => {
   const { email, password } = req.body;
@@ -15,11 +15,22 @@ const handleCitizenLogin = async (req, res) => {
 
   if (match) {
 
-    generateTokens.generateTokenAndSetCookie(findCitizen._id, res);
-    res.status(200).json({
-      _id: findCitizen._id,
-      email: findCitizen.email
+    const Email = findCitizen.email;
+    const refreshToken = jwt.sign(
+      {
+        email: Email,
+      },  
+      process.env.REFRESH_TOKEN_SECRET,
+      { expiresIn: "10d" }
+    );
+    findCitizen.refreshToken = refreshToken;
+    const result = await findCitizen.save();
+    console.log(result);
+
+    res.cookie("jwt", refreshToken, {
+      maxAge: 24 * 60 * 60 * 1000,
     });
+    return res.status(200).json("login successful!");
   } else {
     return res.status(401).json("Incorrect password !!");;
   }

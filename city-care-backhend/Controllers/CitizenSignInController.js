@@ -1,6 +1,7 @@
 const citizen = require("../Model/Citizen");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const generateTokens = require("../utils/generateTokens");
 
 const handleCitizenLogin = async (req, res) => {
   const { email, password } = req.body;
@@ -14,7 +15,7 @@ const handleCitizenLogin = async (req, res) => {
   const match = await bcrypt.compare(password, findCitizen.password);
 
   if (match) {
-
+    generateTokens.generateTokenAndSetCookie(findCitizen._id, res);
     const Email = findCitizen.email;
     const refreshToken = jwt.sign(
       {

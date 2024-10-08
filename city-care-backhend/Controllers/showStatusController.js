@@ -7,6 +7,7 @@ const formatDate = (date) => {
 const showStatus = async (req, res) => {
     try {
         const email = req.params.email;
+        console.log(email);
         // Fetch user complaints from the Complaint model
         const userComplaints = await Complaint.find({ email: email }, 'time area status').lean();
         // Fetch accepted complaints from the Accepted_Complaints model

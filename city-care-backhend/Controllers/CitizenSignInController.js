@@ -16,6 +16,7 @@ const handleCitizenLogin = async (req, res) => {
 
   if (match) {
     generateTokens.generateTokenAndSetCookie(findCitizen._id, res);
+    
     const Email = findCitizen.email;
     const refreshToken = jwt.sign(
       {
@@ -26,15 +27,20 @@ const handleCitizenLogin = async (req, res) => {
     );
     findCitizen.refreshToken = refreshToken;
     const result = await findCitizen.save();
-    console.log(result);
+   
 
     res.cookie("jwt", refreshToken, {
       maxAge: 24 * 60 * 60 * 1000,
     });
-    return res.status(200).json("login successful!");
+
+    return res.status(200).json({
+      _id: findCitizen._id,
+      email: findCitizen.email
+    })
+    
   } else {
     return res.status(401).json("Incorrect password !!");;
   }
 };
 
-module.exports = { handleCitizenLogin };
+module.exports = { handleCitizenLogin }; 

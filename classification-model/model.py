@@ -508,7 +508,6 @@ waste_management_complaints = [
 complaints = []
 labels = []
 
-# Generate 125 complaints for each department
 for _ in range(1000):
     complaints.append(random.choice(road_complaints))
     labels.append("Road Department")
@@ -519,35 +518,33 @@ for _ in range(1000):
     complaints.append(random.choice(street_light_complaints))
     labels.append("Street Light Department")
 
-# Step 1: Preprocess the data using TF-IDF
 vectorizer = TfidfVectorizer()
 X = vectorizer.fit_transform(complaints)  # Convert text data into TF-IDF features
 
-# Step 2: Label the data (labels are already created)
 y = labels
 
-# Step 3: Split data into training and test sets (80% train, 20% test)
+
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42
 )
 
-# Step 4: Train a Naive Bayes classifier
+
 nb_model = MultinomialNB()
 nb_model.fit(X_train, y_train)
 
 
-# Step 5: Define the prediction function
+
 def predict_department(input_description):
-    # Preprocess the input description using the same vectorizer
+    
     input_tfidf = vectorizer.transform([input_description])
 
-    # Use the trained model to predict the department
+    
     predicted_department = nb_model.predict(input_tfidf)
 
     return predicted_department[0]
 
 
-# Step 6: Create the API endpoint for prediction
+
 @app.route("/predict", methods=["POST"])
 def predict():
     data = request.get_json()

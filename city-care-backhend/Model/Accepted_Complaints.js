@@ -19,7 +19,7 @@ const acceptedComplaintsSchema = new mongoose.Schema({
   },
   status:{
     type:String,
-    default:"acccepted",
+    default:"accepted",
   },
   image: {
     filename: {

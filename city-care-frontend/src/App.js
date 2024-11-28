@@ -13,11 +13,13 @@ import DepartmentHome from "./Components/DepartmentHome";
 import Complaint from "./Components/Complaint";
 import AdminHome from "./Components/AdminHome";
 import Inbox from "./Components/Inbox";
+import Analysis from "./Components/Analysis";
 import DepartmentInbox from "./Components/DepartmentInbox";
 import AdminSignIn from "./Components/AdminSignIn";
 import DepartmentSignIn from "./Components/DepartmentSignIn";
 import ComplaintsStatus from "./Components/ComplaintsStatus";
 import { AuthContextProvider } from "./context/AuthContext";
+import Landing from "./Components/Landing";
 
 function App() {
   const [user, setUser] = useState("");
@@ -33,6 +35,7 @@ function App() {
         </Route>
         <Route path="AdminDashboard" element={<AdminHome />}>
           <Route path="Inbox" element={<Inbox/>}> </Route>
+          <Route path="Analysis" element={<Analysis/>}> </Route>
         </Route>
         <Route path="DepartmentDashboard/:department" element={<DepartmentHome />}>
           <Route path="DepartmentInbox/:department" element={<DepartmentInbox/>}> </Route>
@@ -40,6 +43,7 @@ function App() {
 
         
           <Route path="/" element={<Home />}>
+          <Route path="/" element={<Landing/>}></Route>
             <Route path="About" element={<About />}></Route>
             <Route path="Contact" element={<Contact />}></Route>
             <Route

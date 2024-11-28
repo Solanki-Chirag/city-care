@@ -1,10 +1,7 @@
-from flask import Flask, request, jsonify
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.model_selection import train_test_split
 import random
-
-app = Flask(__name__)
 
 # Sample complaint data
 road_complaints = [
@@ -377,18 +374,12 @@ def predict_department(input_description):
     predicted_department = nb_model.predict(input_tfidf)
     return predicted_department[0]
 
-# Flask API endpoint for prediction
-@app.route("/predict", methods=["POST"])
-def predict():
-    data = request.get_json()  # Get JSON data from the request
-    input_description = data.get("description")  # Extract description
-
-    if not input_description:
-        return jsonify({"error": "No description provided"}), 400
-
-    # Predict the department based on the complaint description
-    predicted_department = predict_department(input_description)
-    return jsonify({"predicted_department": predicted_department})
-
+# Terminal-based testing
 if __name__ == "__main__":
-    app.run(debug=True)
+    while True:
+        user_input = input("Enter a complaint description (or type 'exit' to quit): ")
+        if user_input.lower() == "exit":
+            print("Exiting...")
+            break
+        predicted_department = predict_department(user_input)
+        print(f"Predicted Department: {predicted_department}")

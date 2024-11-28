@@ -1,0 +1,45 @@
+.analysis-container {
+    text-align: center;
+    padding: 20px;
+    justify-items: center; /* Center cards horizontally */
+    align-items: center;
+  }
+  
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columns */
+    gap: 50px;
+    justify-items: center; /* Center cards horizontally */
+    align-items: center; /* Center cards vertically */
+  }
+  
+  
+  
+  .card {
+    background-color: #fff;
+    width: 300px;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .card:hover {
+    transform: translateY(-10px);
+  }
+  
+  .card h2 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .card p {
+    font-size: 16px;
+    margin: 5px 0;
+    color: #555;
+  }
+  
+  
+  
